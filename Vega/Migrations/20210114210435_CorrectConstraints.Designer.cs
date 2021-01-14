@@ -9,8 +9,8 @@ using Vega.Persistence;
 namespace Vega.Migrations
 {
     [DbContext(typeof(VegaDbContext))]
-    [Migration("20210104235745_ApplyCostraints")]
-    partial class ApplyCostraints
+    [Migration("20210114210435_CorrectConstraints")]
+    partial class CorrectConstraints
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,7 +20,7 @@ namespace Vega.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Vega.Make", b =>
+            modelBuilder.Entity("Vega.Models.Make", b =>
                 {
                     b.Property<int>("MakeId")
                         .ValueGeneratedOnAdd()
@@ -35,27 +35,28 @@ namespace Vega.Migrations
                     b.ToTable("Makes");
                 });
 
-            modelBuilder.Entity("Vega.Model", b =>
+            modelBuilder.Entity("Vega.Models.Model", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ModelId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("MakeId");
 
-                    b.Property<int>("Name")
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(255);
 
-                    b.HasKey("Id");
+                    b.HasKey("ModelId");
 
                     b.HasIndex("MakeId");
 
                     b.ToTable("Models");
                 });
 
-            modelBuilder.Entity("Vega.Model", b =>
+            modelBuilder.Entity("Vega.Models.Model", b =>
                 {
-                    b.HasOne("Vega.Make", "Make")
+                    b.HasOne("Vega.Models.Make", "Make")
                         .WithMany("Models")
                         .HasForeignKey("MakeId")
                         .OnDelete(DeleteBehavior.Cascade);

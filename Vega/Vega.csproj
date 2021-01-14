@@ -33,6 +33,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20210104233353_InitialModel.cs" />
     <Compile Remove="Migrations\20210104233353_InitialModel.Designer.cs" />
+    <Compile Remove="Migrations\20210104235745_ApplyCostraints.cs" />
+    <Compile Remove="Migrations\20210104235745_ApplyCostraints.Designer.cs" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
